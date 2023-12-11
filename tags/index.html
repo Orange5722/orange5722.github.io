@@ -39,7 +39,7 @@ IconifyProviders = {
   const wordcloud_canvas = document.getElementById('wordcloud-canvas')
   wordcloud_canvas.width = document.querySelector('#page').clientWidth - 16
   wordcloud_canvas.height = 350
-  let wordcloud_config = {"list":[["重庆",1.1,"/tags/重庆/"],["成都",1.1,"/tags/成都/"],["摆烂",1.1,"/tags/摆烂/"],["班级日志",1.9,"/tags/班级日志/"],["其他",1.1,"/tags/其他/"]],"fontFamily":"'PingFang SC', 'Microsoft YaHei', Roboto, Arial, sans-serif","fontWeight":400,"gridSize":10,"weightFactor":13,"backgroundColor":"transparent","color":"random-dark"}
+  let wordcloud_config = {"list":[["班级日志",1.9,"/tags/班级日志/"],["重庆",1.1,"/tags/重庆/"],["成都",1.1,"/tags/成都/"],["摆烂",1.1,"/tags/摆烂/"],["其他",1.1,"/tags/其他/"]],"fontFamily":"'PingFang SC', 'Microsoft YaHei', Roboto, Arial, sans-serif","fontWeight":400,"gridSize":10,"weightFactor":13,"backgroundColor":"transparent","color":"random-dark"}
   wordcloud_config.hover = function(item, dimension){
     if (!dimension) {
       wordbox.hidden = true
