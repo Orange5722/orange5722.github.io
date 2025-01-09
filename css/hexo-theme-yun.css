@@ -329,19 +329,19 @@ body::before {
   }
 }
 body {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/normal.cur"), auto;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/pointer.cur"), auto;
 }
 a {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/work.cur"), auto;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), auto;
 }
 a:hover {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/work.cur"), auto;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), auto;
 }
 .hty-icon-button {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/work.cur"), pointer;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), pointer;
 }
 input {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/texto.cur"), auto;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/text.cur"), auto;
 }
 :root {
   --banner-char-bg-color: rgba(255,255,255,0.5);
@@ -900,7 +900,7 @@ input {
 }
 .wordcloud #wordcloud-canvas,
 .wordcloud #wordcloud-sidebar-canvas {
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/work.cur"), pointer;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), pointer;
 }
 .wordcloud #wordbox {
   pointer-events: none;
@@ -2328,7 +2328,7 @@ iframe.bilibili-video {
   position: relative;
   width: 15rem;
   margin: 1.5rem;
-  cursor: url("https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/cursor/work.cur"), pointer;
+  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), pointer;
 }
 .photo-list-item img {
   box-sizing: border-box;
