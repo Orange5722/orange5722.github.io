@@ -124,7 +124,7 @@ html.dark {
   --hty-secondary-text-color: #555;
   --post-block-bg-color: #fff;
   --smc-link-color: #4682b4;
-  --yun-bg-image: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/20220206/亮色背景.jpg");
+  --yun-bg-image: url("https://jsd.cdn.zzko.cn/gh/Orange5722/picx-images-hosting@master/ca324/bg.jpg");
   --banner-line-color: #000;
   --banner-char-color: #000;
 }
@@ -135,7 +135,7 @@ html.dark {
   --hty-secondary-text-color: #eee;
   --post-block-bg-color: #1b1f2e;
   --smc-link-color: #7ca8cc;
-  --yun-bg-image: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/20220206/暗色背景.jpg");
+  --yun-bg-image: url("https://jsd.cdn.zzko.cn/gh/Orange5722/picx-images-hosting@master/ca324/bg.jpg");
   --banner-line-color: #fff;
   --banner-char-color: #fff;
   --banner-char-bg-color: rgba(0,0,0,0.5);
@@ -143,7 +143,7 @@ html.dark {
   --post-card-bg-color: rgba(27,31,46,0.9);
   --post-card-shadow: 0 1px 8px rgba(27,31,46,0.1);
   --sidebar-bg-color: rgba(27,31,46,0.95);
-  --sidebar-bg-image: url("https://i.loli.net/2021/09/01/ilDUBVzfy2P4ZuJ.jpg");
+  --sidebar-bg-image: url("");
   --page-btn-bg-color: rgba(0,0,0,0.5);
   --page-btn-hover-bg-color: rgba(218,230,240,0.9);
   --page-btn-active-bg-color: #4682b4;
@@ -1821,7 +1821,7 @@ input {
   max-height: 10000px;
 }
 :root {
-  --sidebar-bg-image: url("https://i.loli.net/2021/09/01/pRKA9gMbGW1iDNY.jpg");
+  --sidebar-bg-image: url("https://cdn.yunyoujun.cn/img/bg/alpha-stars-timing-1.webp");
 }
 #menu-btn {
   display: none;
@@ -1966,9 +1966,6 @@ input {
 }
 .site-author-avatar img:hover {
   box-shadow: 0 0 30px rgba(70,130,180,0.2);
-}
-.site-author-avatar img {
-  border-radius: 50%;
 }
 .site-author-name {
   margin-top: 0;
@@ -2206,22 +2203,6 @@ html.dark {
 #github-issues {
   margin: 1rem;
 }
-#say {
-  color: var(--hty-text-color);
-  display: block;
-  text-align: center;
-  font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
-  font-weight: bold;
-  padding: 0.5rem;
-  border-top: 1px solid var(--hty-secondary-text-color);
-  border-bottom: 1px solid var(--hty-secondary-text-color);
-}
-#say #say-content {
-  display: block;
-}
-#say #say-from {
-  display: block;
-}
 iframe.bilibili-video {
   width: 100%;
   max-width: 800px;
@@ -2273,110 +2254,4 @@ iframe.bilibili-video {
   display: none;
   padding: 1rem;
   border: 1px solid #d3d3d3;
-}
-.album-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.album-list-item {
-  display: inline-flex;
-}
-.album-list-item figure {
-  position: relative;
-  width: 15rem;
-  margin: 2rem;
-}
-.album-list-item figure::before {
-  content: '';
-  position: absolute;
-  top: 1%;
-  left: 0.5%;
-  width: 100%;
-  height: 96%;
-  border: 0.25rem solid #fff;
-  background-color: #666;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-  transform: rotate(-3deg);
-}
-.album-list-item figure img {
-  vertical-align: bottom;
-  display: inline-flex;
-  border: 0.25rem solid #fff;
-  box-shadow: 0 8px 10px rgba(0,0,0,0.3);
-  padding: 0;
-  transform: rotate(2deg);
-  width: 100%;
-  height: 10rem;
-  object-fit: cover;
-  background-color: #eee;
-}
-.album-list-item figure figcaption {
-  position: absolute;
-  bottom: -2.5rem;
-  display: block;
-  text-align: center;
-  width: 100%;
-}
-.photo-list {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.photo-list-item {
-  display: inline-flex;
-  position: relative;
-  width: 15rem;
-  margin: 1.5rem;
-  cursor: url("https://jsd.cdn.zzko.cn/gh/Orange5722/images@master/link.cur"), pointer;
-}
-.photo-list-item img {
-  box-sizing: border-box;
-  vertical-align: bottom;
-  display: inline-flex;
-  border: 0.25rem solid #fff;
-  box-shadow: 0 8px 10px rgba(0,0,0,0.1);
-  width: 100%;
-  height: 10rem;
-  object-fit: cover;
-  background-color: #eee;
-}
-.photo-list-item figcaption {
-  position: absolute;
-  bottom: -1.8rem;
-  display: block;
-  text-align: center;
-  width: 100%;
-  font-size: 0.9rem;
-}
-#decryptContainer {
-  display: flex;
-  height: 10rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-#decrypt-password {
-  outline: none;
-  font-size: 1.5rem;
-  border-radius: 3rem;
-  padding: 0.5rem 1.5rem;
-  border: 1px solid #999;
-  box-sizing: border-box;
-  width: 90%;
-  max-width: 800px;
-  font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
-  font-weight: 900;
-  text-align: center;
-}
-#decryptButton {
-  color: #4682b4;
-  background-color: rgba(70,130,180,0.08);
-}
-#decryptButton:active {
-  background-color: rgba(70,130,180,0.3);
-}
-#decryptButton .icon {
-  width: 1.5rem;
-  height: 1.5rem;
 }
