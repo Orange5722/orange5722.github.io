@@ -6,7 +6,7 @@
 
 // ⚠️ 部署 Worker 后替换成实际地址，例如：
 // const API_BASE = "https://memo-worker.你的子域.workers.dev";
-const API_BASE = "https://memo-worker.orange5722.workers.dev";
+const API_BASE = "https://api.oorange.cn";
 
 const TOKEN_KEY = "memo_token";
 const USER_KEY = "memo_user";
