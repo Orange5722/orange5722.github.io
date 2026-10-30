@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>备忘录 · Memo</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="topbar">
+    <h1>备忘录</h1>
+    <div id="userbar" class="userbar hidden">
+      <span id="who"></span>
+      <button id="logoutBtn" class="ghost">退出</button>
+    </div>
+  </header>
+
+  <!-- 登录 / 注册 -->
+  <section id="authView" class="card">
+    <h2 class="card-title">登录 / 注册</h2>
+    <form id="authForm" autocomplete="on">
+      <label>用户名
+        <input id="username" name="username" type="text" placeholder="3-32 位字母 / 数字 / 中文" required>
+      </label>
+      <label>密码
+        <input id="password" name="password" type="password" placeholder="至少 6 位" required>
+      </label>
+      <div class="row">
+        <button type="submit" id="loginBtn" class="primary">登录</button>
+        <button type="button" id="registerBtn" class="ghost">注册</button>
+      </div>
+      <p id="authMsg" class="msg"></p>
+    </form>
+  </section>
+
+  <!-- 备忘录 -->
+  <section id="memoView" class="hidden">
+    <div class="card">
+      <textarea id="memoInput" rows="3" placeholder="写点什么…（Ctrl+Enter 快速添加）"></textarea>
+      <div class="row">
+        <button id="addBtn" class="primary">添加</button>
+        <span id="memoMsg" class="msg"></span>
+      </div>
+    </div>
+    <ul id="memoList" class="memo-list"></ul>
+    <p id="emptyTip" class="empty hidden">还没有备忘录，上面写一条试试。</p>
+  </section>
+</main>
+
+<script src="/agent-pages/assets/nav.js?v=1" defer></script>
+<script src="./app.js"></script>
+</body>
+</html>
