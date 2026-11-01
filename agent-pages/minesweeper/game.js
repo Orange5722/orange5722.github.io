@@ -252,7 +252,6 @@
     clearInterval(timerId);
     timerId = null;
     faceEl.textContent = "😵";
-    markExploded(explodedIndex);
 
     // 揭晓所有雷，错误的旗标出来
     for (let i = 0; i < cells.length; i++) {
@@ -264,6 +263,10 @@
         cellEls[i].textContent = "✖";
       }
     }
+
+    // 最后标记被踩中的那一格（要在上面的循环之后，否则会被覆盖）
+    cellEls[explodedIndex].className = "cell open mine exploded";
+    cellEls[explodedIndex].textContent = "💥";
 
     showOverlay(false);
   }
