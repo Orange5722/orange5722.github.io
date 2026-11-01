@@ -33,7 +33,10 @@
     <div id="board" class="board" aria-label="扫雷棋盘"></div>
     <div id="overlay" class="overlay hidden">
       <p id="overlayText"></p>
-      <button id="againBtn" class="again">再来一局</button>
+      <div class="overlay-actions">
+        <button id="peekBtn" class="again ghost">👀 查看雷图</button>
+        <button id="againBtn" class="again">再来一局</button>
+      </div>
     </div>
   </div>
 
@@ -50,6 +53,6 @@
 </main>
 
 <script src="/agent-pages/assets/nav.js?v=1" defer></script>
-<script src="./game.js?v=3"></script>
+<script src="./game.js?v=4"></script>
 </body>
 </html>

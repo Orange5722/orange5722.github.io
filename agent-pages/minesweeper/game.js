@@ -18,6 +18,7 @@
   const overlay   = document.getElementById("overlay");
   const overlayText = document.getElementById("overlayText");
   const againBtn  = document.getElementById("againBtn");
+  const peekBtn   = document.getElementById("peekBtn");
   const levelsEl  = document.getElementById("levels");
   const flagModeBtn = document.getElementById("flagMode");
   const bestEl    = document.getElementById("best");
@@ -295,6 +296,8 @@
     overlayText.textContent = isWin
       ? `🎉 通关！用时 ${timer} 秒`
       : "💥 踩雷了";
+    // 「查看雷图」只在失败时出现；通关时无雷可看
+    peekBtn.classList.toggle("hidden", isWin);
     overlay.className = "overlay " + (isWin ? "win" : "lose");
   }
 
@@ -392,6 +395,11 @@
 
   faceEl.addEventListener("click", newGame);
   againBtn.addEventListener("click", newGame);
+
+  // 踩雷后隐藏结算层，露出已经揭晓的雷图
+  peekBtn.addEventListener("click", () => {
+    overlay.classList.add("hidden");
+  });
 
   flagModeBtn.addEventListener("click", () => {
     flagMode = !flagMode;

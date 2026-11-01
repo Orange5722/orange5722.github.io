@@ -192,6 +192,21 @@ h1 {
   cursor: pointer;
 }
 
+.again.ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.again.ghost:hover { border-color: #3a3a5a; background: #17172a; }
+
+.overlay-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .hint {
   margin: 14px 2px 0;
   font-size: 12.5px;
