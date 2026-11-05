@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>网页收藏夹</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="topbar">
+    <div>
+      <h1>网页收藏夹</h1>
+      <p class="sub">按用途分类整理的全部书签</p>
+    </div>
+    <div id="userbar" class="userbar hidden">
+      <span id="who"></span>
+      <button id="logoutBtn" class="ghost">退出</button>
+    </div>
+  </header>
+
+  <!-- 登录 -->
+  <section id="authView" class="card">
+    <h2 class="card-title">登录查看</h2>
+    <form id="authForm">
+      <label>用户名
+        <input id="username" type="text" autocomplete="username" placeholder="与备忘录相同" required>
+      </label>
+      <label>密码
+        <input id="password" type="password" autocomplete="current-password" placeholder="与备忘录相同" required>
+      </label>
+      <div class="row">
+        <button type="submit" class="primary">登录</button>
+      </div>
+      <p id="authMsg" class="msg"></p>
+    </form>
+  </section>
+
+  <!-- 收藏内容 -->
+  <section id="content" class="hidden">
+    <nav id="toc" class="toc"></nav>
+    <div id="sections"></div>
+    <p class="foot">共 <span id="total">0</span> 个站点 · 分类规则与 Edge 收藏夹一致</p>
+  </section>
+</main>
+
+<script src="/agent-pages/assets/nav.js?v=1" defer></script>
+<script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+:root {
+  color-scheme: dark;
+  --bg: #07070d;
+  --card: #12121c;
+  --line: #23233a;
+  --text: #e8e8f0;
+  --muted: #8b90a8;
+  --primary: #4b7bff;
+  --danger: #ff4d6d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(1100px 560px at 50% -10%, #141a33 0%, var(--bg) 62%);
+  color: var(--text);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { width: min(920px, 94vw); margin: 0 auto; padding: 52px 0 90px; }
+
+.topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+h1 { font-size: 24px; margin: 0 0 6px; letter-spacing: .06em; }
+.sub { margin: 0; font-size: 13px; color: var(--muted); }
+.userbar { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); padding-top: 6px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px; max-width: 420px; }
+.card-title { font-size: 15px; margin: 0 0 16px; color: var(--muted); font-weight: 600; letter-spacing: .08em; }
+
+label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+input {
+  width: 100%; margin-top: 7px; padding: 12px 13px; border-radius: 11px;
+  border: 1px solid var(--line); background: #0c0c15; color: var(--text);
+  font-size: 15px; font-family: inherit; outline: none; transition: border-color .18s;
+}
+input:focus { border-color: var(--primary); }
+
+.row { display: flex; gap: 12px; margin-top: 6px; }
+button { font-family: inherit; font-size: 14px; border-radius: 10px; padding: 10px 20px; border: 1px solid transparent; cursor: pointer; }
+.primary { background: var(--primary); color: #fff; }
+.primary:hover { background: #5f8bff; }
+.ghost { background: transparent; border-color: var(--line); color: var(--text); }
+.ghost:hover { border-color: #3a3a5a; }
+
+.msg { font-size: 13px; margin: 12px 0 0; min-height: 18px; color: var(--muted); }
+.msg.err { color: var(--danger); }
+
+/* 目录 */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.toc a {
+  font-size: 12.5px; color: var(--muted); text-decoration: none;
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px;
+  transition: all .18s;
+}
+.toc a:hover { color: var(--text); border-color: #3a3a5a; background: #15151f; }
+
+/* 分类区 */
+.section { margin-bottom: 36px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; }
+.section h2 { font-size: 19px; margin: 0; letter-spacing: .04em; }
+.section .count { font-size: 12px; color: var(--muted); }
+.section .desc { margin: 6px 0 0; font-size: 12.5px; color: var(--muted); }
+.section hr {
+  border: 0; border-top: 1px solid var(--line);
+  margin: 12px 0 18px;
+}
+
+/* 卡片网格 */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.site {
+  display: flex; gap: 12px; padding: 14px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 13px;
+  text-decoration: none; color: inherit;
+  transition: transform .16s, border-color .16s, background .16s;
+}
+.site:hover { transform: translateY(-2px); border-color: #3f4e86; background: #151521; }
+
+.icon {
+  width: 34px; height: 34px; border-radius: 9px; flex: 0 0 34px;
+  display: flex; align-items: center; justify-content: center;
+  background: #1d1d2e; border: 1px solid #2a2a42; overflow: hidden;
+  font-size: 15px; font-weight: 700; color: #9db4ff;
+}
+.icon img { width: 20px; height: 20px; object-fit: contain; }
+
+.info { min-width: 0; }
+.name { font-size: 14.5px; font-weight: 600; margin-bottom: 3px; }
+.host { font-size: 11.5px; color: #6f7590; word-break: break-all; margin-bottom: 6px; }
+.desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+.foot { text-align: center; font-size: 12px; color: #5c6079; margin-top: 40px; }
+.hidden { display: none !important; }
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  h1 { font-size: 21px; }
+}
