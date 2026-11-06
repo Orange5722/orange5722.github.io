@@ -174,6 +174,26 @@
     authView.classList.remove("hidden");
     if (msg) setMsg(msg, "err");
   }
+  function showForbidden(msg) {
+    content.classList.add("hidden");
+    userbar.classList.add("hidden");
+    authView.classList.remove("hidden");
+    authView.innerHTML = "";
+    var h = document.createElement("h2");
+    h.className = "card-title";
+    h.textContent = "没有权限";
+    var p = document.createElement("p");
+    p.className = "msg err";
+    p.textContent = msg || "该页面仅限管理员访问";
+    var back = document.createElement("p");
+    back.style.marginTop = "18px";
+    var a = document.createElement("a");
+    a.href = "/agent-pages/";
+    a.style.color = "#6f9bff";
+    a.textContent = "← 返回页面列表";
+    back.appendChild(a);
+    authView.append(h, p, back);
+  }
 
   function load() {
     return api("/api/bookmarks").then(function (data) {
@@ -216,7 +236,7 @@
     if (!token()) return showAuth();
     load().catch(function (err) {
       if (err.status === 401) { clearSession(); showAuth("登录已过期，请重新登录"); }
-      else if (err.status === 403) { showAuth(err.message); }
+      else if (err.status === 403) { showForbidden(err.message); }
       else { showAuth(err.message); }
     });
   })();
