@@ -13,22 +13,25 @@
     color: #e8e8f0; font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  main { width: min(600px, 90vw); padding: 40px 0; }
-  header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+  main { width: min(620px, 90vw); padding: 40px 0; }
+  header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
   .brand { font-size: 12px; letter-spacing: .22em; color: #6f7590; margin-bottom: 8px; }
   h1 { font-size: 24px; margin: 0; letter-spacing: .06em; }
-  .who { text-align: right; font-size: 12.5px; color: #8b90a8; line-height: 1.7; }
+  .who { text-align: right; font-size: 12.5px; color: #8b90a8; line-height: 1.8; }
   .badge {
     display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px;
     border: 1px solid #2b3a63; background: #16203c; color: #8fb8ff;
   }
   .badge.admin { border-color: #5b4a12; background: #3a2f0d; color: #ffd166; }
+  .badge.guest { border-color: #333a4d; background: #171a24; color: #9aa3bd; }
   .who button {
-    margin-top: 6px; padding: 4px 12px; font-size: 12px; border-radius: 8px;
+    margin-top: 6px; padding: 5px 12px; font-size: 12px; border-radius: 8px;
     border: 1px solid #23233a; background: transparent; color: #b9bfd6; cursor: pointer;
     font-family: inherit;
   }
   .who button:hover { background: #17172a; }
+  .who button.primary { background: #2f6bff; border-color: #2f6bff; color: #fff; }
+  .who button.primary:hover { background: #4a80ff; }
 
   h2.section-title {
     font-size: 13px; color: #8b90a8; font-weight: 600; letter-spacing: .1em;
@@ -42,10 +45,14 @@
     transition: border-color .18s, transform .18s;
   }
   a.card:hover { border-color: #3f4e86; transform: translateY(-2px); }
-  .card .t { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .card .t { font-size: 15px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
   .card .d { font-size: 12.5px; color: #8b90a8; line-height: 1.5; }
   .card .u { font-size: 11.5px; color: #5c6079; margin-top: 6px; word-break: break-all; }
-  .locked { font-size: 12.5px; color: #5c6079; margin-top: 18px; }
+  .tag {
+    font-size: 10.5px; font-weight: 500; padding: 1px 7px; border-radius: 999px;
+    border: 1px solid #3a3a2a; color: #d8b45a; background: #241f10;
+  }
+  .tag.admin { border-color: #4a3a12; color: #ffd166; background: #2a220c; }
   .empty { font-size: 13px; color: #8b90a8; }
   .hidden { display: none !important; }
 </style>
@@ -57,76 +64,62 @@
       <div class="brand">AGENT PAGES</div>
       <h1>页面列表</h1>
     </div>
-    <div class="who" id="who" style="visibility:hidden">
-      <div><span id="uname"></span> <span id="roleBadge" class="badge"></span></div>
-      <button id="logout">退出登录</button>
+    <div class="who" id="who">
+      <div id="whoLine"><span class="badge guest" id="roleBadge">游客</span></div>
+      <button id="authBtn" class="primary">登录 / 注册</button>
     </div>
   </header>
 
-  <div id="content" class="hidden">
-    <div id="sections"></div>
-    <p class="locked" id="lockedTip"></p>
-  </div>
-  <p class="empty hidden" id="loading">正在验证登录状态…</p>
+  <div id="sections"></div>
+  <p class="empty hidden" id="loading">加载中…</p>
 </main>
 
+<script src="/agent-pages/assets/auth.js"></script>
+<script src="/agent-pages/assets/pages.js"></script>
 <script src="/agent-pages/assets/nav.js?v=1" defer></script>
 <script>
 (function () {
-  var API = "https://api.oorange.cn";
-  var TOKEN_KEY = "memo_token";
-  var USER_KEY = "memo_user";
-
-  var PAGES = [
-    { href: "/agent-pages/friends/", title: "朋友们的页面", desc: "给朋友做的整活页面合集", role: "guest" },
-    { href: "/agent-pages/memo/", title: "备忘录 Memo", desc: "登录后可读写自己的备忘", role: "guest" },
-    { href: "/agent-pages/bookmarks/", title: "网页收藏夹", desc: "全部书签，按用途分类", role: "admin" }
-  ];
-
   var $ = function (id) { return document.getElementById(id); };
+  var isAdmin = false;
 
-  function goLogin() {
-    location.replace("/agent-pages/login/?next=" + encodeURIComponent("/agent-pages/"));
+  function renderGuest() {
+    $("whoLine").innerHTML = '<span class="badge guest">游客</span>';
+    $("authBtn").textContent = "登录 / 注册";
+    $("authBtn").className = "primary";
+    renderPages();
   }
 
-  var token = localStorage.getItem(TOKEN_KEY);
-  if (!token) return goLogin();
+  function renderUser(me) {
+    isAdmin = me.role === "admin";
+    var b = document.createElement("span");
+    b.className = "badge" + (isAdmin ? " admin" : "");
+    b.textContent = isAdmin ? "管理员" : "已登录";
+    $("whoLine").textContent = me.username + " ";
+    $("whoLine").appendChild(b);
 
-  fetch(API + "/api/me", { headers: { Authorization: "Bearer " + token } })
-    .then(function (r) {
-      if (r.status === 401) { localStorage.removeItem(TOKEN_KEY); goLogin(); throw new Error("unauth"); }
-      return r.json();
-    })
-    .then(function (me) {
-      render(me);
-    })
-    .catch(function (e) {
-      if (e && e.message === "unauth") return;
-      $("loading").textContent = "无法连接服务器：" + (e && e.message ? e.message : e);
+    $("authBtn").textContent = "退出登录";
+    $("authBtn").className = "";
+    renderPages();
+  }
+
+  function renderPages() {
+    var host = $("sections");
+    host.innerHTML = "";
+
+    var list = (window.APS_PAGES || []).filter(function (p) {
+      // 管理员页面：非管理员连条目都不显示
+      if (p.access === "admin" && !isAdmin) return false;
+      return true;
     });
 
-  function render(me) {
-    var isAdmin = me.role === "admin";
-
-    $("uname").textContent = me.username;
-    var b = $("roleBadge");
-    b.textContent = isAdmin ? "管理员" : "访客";
-    b.className = "badge" + (isAdmin ? " admin" : "");
-    $("who").style.visibility = "visible";
-
     var groups = [
-      { title: "公开页面", items: PAGES.filter(function (p) { return p.role === "guest"; }) },
-      { title: "管理员页面", items: PAGES.filter(function (p) { return p.role === "admin"; }) }
+      { title: "公开页面", items: list.filter(function (p) { return p.access === "public"; }) },
+      { title: "需要登录", items: list.filter(function (p) { return p.access === "auth"; }) },
+      { title: "管理员页面", items: list.filter(function (p) { return p.access === "admin"; }) }
     ];
-
-    var host = $("sections");
-    var hiddenCount = 0;
 
     groups.forEach(function (g) {
       if (!g.items.length) return;
-      var visible = isAdmin ? g.items : g.items.filter(function (p) { return p.role !== "admin"; });
-      hiddenCount += g.items.length - visible.length;
-      if (!visible.length) return;
 
       var h = document.createElement("h2");
       h.className = "section-title";
@@ -134,15 +127,41 @@
       host.appendChild(h);
 
       var ul = document.createElement("ul");
-      visible.forEach(function (p) {
+      g.items.forEach(function (p) {
         var li = document.createElement("li");
         var a = document.createElement("a");
         a.className = "card";
-        a.href = p.href;
 
-        var t = document.createElement("div"); t.className = "t"; t.textContent = p.title;
-        var d = document.createElement("div"); d.className = "d"; d.textContent = p.desc;
-        var u = document.createElement("div"); u.className = "u"; u.textContent = p.href;
+        // 游客点「需要登录」的页面 → 引导去登录，登录后回跳
+        if (p.access === "auth" && !APS.isLoggedIn()) {
+          a.href = APS.loginUrl(p.href);
+        } else {
+          a.href = p.href;
+        }
+
+        var t = document.createElement("div");
+        t.className = "t";
+        t.textContent = p.title;
+        if (p.access === "auth" && !APS.isLoggedIn()) {
+          var tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = "需登录";
+          t.appendChild(tag);
+        }
+        if (p.access === "admin") {
+          var tag2 = document.createElement("span");
+          tag2.className = "tag admin";
+          tag2.textContent = "管理员";
+          t.appendChild(tag2);
+        }
+
+        var d = document.createElement("div");
+        d.className = "d";
+        d.textContent = p.desc || "";
+
+        var u = document.createElement("div");
+        u.className = "u";
+        u.textContent = p.href;
 
         a.append(t, d, u);
         li.appendChild(a);
@@ -151,24 +170,23 @@
       host.appendChild(ul);
     });
 
-    if (hiddenCount > 0) {
-      $("lockedTip").textContent = "还有 " + hiddenCount + " 个页面需要管理员权限才能查看。";
-    }
-
     $("loading").classList.add("hidden");
-    $("content").classList.remove("hidden");
   }
 
-  $("logout").addEventListener("click", function () {
-    fetch(API + "/api/logout", {
-      method: "POST",
-      headers: { Authorization: "Bearer " + token }
-    }).catch(function () {}).then(function () {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-      location.replace("/agent-pages/login/");
-    });
+  $("authBtn").addEventListener("click", function () {
+    if (APS.isLoggedIn()) APS.logout();
+    else location.href = APS.loginUrl("/agent-pages/");
   });
+
+  // 有 token 就确认一下身份；401 视为游客，不强制跳登录
+  if (APS.isLoggedIn()) {
+    APS.me().then(renderUser).catch(function () {
+      try { localStorage.removeItem("memo_token"); localStorage.removeItem("memo_user"); } catch (e) {}
+      renderGuest();
+    });
+  } else {
+    renderGuest();
+  }
 })();
 </script>
 </body>

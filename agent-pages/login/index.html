@@ -39,6 +39,12 @@
   .msg { min-height: 20px; margin: 12px 0 0; font-size: 13px; color: #8b90a8; }
   .msg.err { color: #ff6b6b; }
   .msg.ok { color: #4ade80; }
+  .guest-link {
+    display: block; text-align: center; margin-top: 16px; padding: 10px;
+    font-size: 13.5px; color: #8b90a8; text-decoration: none;
+    border: 1px dashed #2a2a42; border-radius: 11px; transition: all .18s;
+  }
+  .guest-link:hover { color: #d7dbe8; border-color: #3f4e86; background: #15151f; }
   .foot { margin-top: 18px; font-size: 12.5px; color: #5c6079; text-align: center; }
   .foot a { color: #6f9bff; text-decoration: none; }
 </style>
@@ -60,6 +66,8 @@
     <button type="button" id="registerBtn" class="ghost">注册新账号</button>
     <p id="msg" class="msg"></p>
   </form>
+
+  <a class="guest-link" href="/agent-pages/">👀 以游客身份浏览（无需登录）→</a>
 
   <p class="foot"><a href="https://oorange.cn/">← 返回主站</a></p>
 </div>

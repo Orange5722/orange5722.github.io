@@ -270,14 +270,17 @@ $("memoInput").addEventListener("keydown", (e) => {
 });
 
 (async function init() {
-  if (!getToken()) return showAuth();
+  if (!getToken()) {
+    location.replace("/agent-pages/login/?next=" + encodeURIComponent("/agent-pages/memo/"));
+    return;
+  }
   try {
     await api("/api/memos");
     showMemo(localStorage.getItem(USER_KEY));
     await loadMemos();
   } catch (e) {
     setSession(null);
-    showAuth();
-    if (e.status !== 401) setMsg(authMsg, e.message, "err");
+    location.replace("/agent-pages/login/?next=" + encodeURIComponent("/agent-pages/memo/"));
+    return;
   }
 })();

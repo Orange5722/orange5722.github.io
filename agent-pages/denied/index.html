@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>没有权限 · Agent Pages</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(900px 500px at 50% -10%, #16203c 0%, #07070d 60%);
+    color: #e8e8f0; font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  .card {
+    width: min(420px, 90vw); background: #12121c; border: 1px solid #23233a;
+    border-radius: 18px; padding: 32px 28px; text-align: center;
+  }
+  .icon { font-size: 34px; margin-bottom: 10px; }
+  h1 { font-size: 19px; margin: 0 0 10px; }
+  p { font-size: 13px; color: #8b90a8; line-height: 1.7; margin: 0 0 20px; }
+  a.btn {
+    display: inline-block; padding: 10px 20px; border-radius: 10px; text-decoration: none;
+    font-size: 14px; background: #2f6bff; color: #fff; margin: 4px;
+  }
+  a.btn.ghost { background: transparent; border: 1px solid #23233a; color: #b9bfd6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">🔒</div>
+  <h1>这个页面仅限管理员</h1>
+  <p>当前账号没有访问权限。<br>可以回页面列表，或者换一个账号登录。</p>
+  <a class="btn" href="/agent-pages/">返回页面列表</a>
+  <a class="btn ghost" href="/agent-pages/login/">切换账号</a>
+</div>
+</body>
+</html>
