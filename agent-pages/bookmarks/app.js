@@ -232,10 +232,16 @@
   $("authForm").addEventListener("submit", doLogin);
   $("logoutBtn").addEventListener("click", doLogout);
 
+  function goLogin() {
+    location.replace(
+      "/agent-pages/login/?next=" + encodeURIComponent("/agent-pages/bookmarks/")
+    );
+  }
+
   (function init() {
-    if (!token()) return showAuth();
+    if (!token()) return goLogin();
     load().catch(function (err) {
-      if (err.status === 401) { clearSession(); showAuth("登录已过期，请重新登录"); }
+      if (err.status === 401) { clearSession(); goLogin(); return; }
       else if (err.status === 403) { showForbidden(err.message); }
       else { showAuth(err.message); }
     });
