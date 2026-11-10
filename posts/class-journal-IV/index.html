@@ -117,12 +117,16 @@ document.addEventListener("pjax:success", initScrollReveal);
   if (setting === 'dark' || (prefersDark && setting !== 'light'))
     document.documentElement.classList.toggle('dark', true)
 })()</script><!-- hexo injector head_end start --><style id="footer-readability">
-#footer { color: #E6E6E6; }
-#footer .copyright, #footer .powered, #footer .live-time, #footer #busuanzi { color: #E6E6E6; }
-#footer .footer-separator { color: #8b90a8; }
-#footer a { color: #DCE6FF; }
-#footer a:hover { color: #FFFFFF; }
-#footer #busuanzi span[title] { color: #E6E6E6; }
+#footer { color: #3a3a42; }
+#footer .copyright, #footer .powered, #footer .live-time, #footer #busuanzi { color: #3a3a42; }
+#footer .footer-separator { color: #8b8b95; }
+#footer a { color: #1f5fbf; }
+#footer a:hover { color: #0b3f96; }
+html.dark #footer { color: #E6E6E6; }
+html.dark #footer .copyright, html.dark #footer .powered, html.dark #footer .live-time, html.dark #footer #busuanzi { color: #E6E6E6; }
+html.dark #footer .footer-separator { color: #8b90a8; }
+html.dark #footer a { color: #DCE6FF; }
+html.dark #footer a:hover { color: #FFFFFF; }
 </style><!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
