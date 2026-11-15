@@ -1,0 +1,35 @@
+{
+  "canvas": {
+    "mode": "adaptive",
+    "width": 7680,
+    "height": 4320,
+    "renderScale": 1
+  },
+  "background": {
+    "enabled": true,
+    "textureFileName": "SP_YeRmuDLH_bg.png",
+    "mode": "cover",
+    "opacity": 1,
+    "z": -1500
+  },
+  "backgroundColor": "#000000",
+  "premultipliedAlpha": false,
+  "meshes": [
+    {
+      "type": "spine",
+      "skeletonFileName": "SP_YeRmuDLH.skel",
+      "atlasFileName": "SP_YeRmuDLH.atlas",
+      "animationName": "idle",
+      "fit": {
+        "mode": "contain",
+        "zoom": 1.25,
+        "margin": 0.025
+      },
+      "position": {
+        "x": 0,
+        "y": 100,
+        "z": -1200
+      }
+    }
+  ]
+}

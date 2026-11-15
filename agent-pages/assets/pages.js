@@ -9,6 +9,12 @@
  */
 window.APS_PAGES = [
   {
+    href: "/agent-pages/yilemu-wallpaper/",
+    title: "曳尔沐立绘壁纸",
+    desc: "Spine 动态立绘，全屏当壁纸用",
+    access: "public"
+  },
+  {
     href: "/agent-pages/friends/",
     title: "朋友们的页面",
     desc: "给朋友做的整活页面合集",

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>曳尔沐立绘壁纸 · Agent Pages</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body {
+    margin: 0; padding: 0; height: 100%; width: 100%;
+    overflow: hidden; background: #000;
+    font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { display: flex; align-items: center; justify-content: center; cursor: default; }
+  canvas { display: block; }
+
+  /* 加载提示 */
+  #loading {
+    position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px; color: #8b90a8; font-size: 13px;
+    background: #000; transition: opacity .6s; z-index: 10;
+  }
+  #loading.hide { opacity: 0; pointer-events: none; }
+  .spinner {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 2px solid #23233a; border-top-color: #7aa2ff;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* 右下角控制条：平时半透明，鼠标移上去才明显 */
+  #bar {
+    position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px;
+    opacity: .28; transition: opacity .25s; z-index: 11;
+  }
+  #bar:hover { opacity: 1; }
+  #bar a, #bar button {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 13px; border-radius: 10px; font-size: 12.5px; text-decoration: none;
+    color: #cfd6e8; background: rgba(18,18,28,.72); border: 1px solid #2a2a42;
+    backdrop-filter: blur(8px); cursor: pointer; font-family: inherit;
+    transition: border-color .18s, background .18s, color .18s;
+  }
+  #bar a:hover, #bar button:hover { border-color: #4b63a8; color: #fff; background: rgba(30,32,48,.85); }
+
+  /* 左上角说明 */
+  #hint {
+    position: fixed; left: 16px; top: 16px; font-size: 12px; color: #7c829c;
+    opacity: 0; transition: opacity .25s; z-index: 11; pointer-events: none;
+    line-height: 1.7;
+  }
+  body:hover #hint { opacity: .85; }
+</style>
+</head>
+<body id="body">
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div id="loadingText">正在加载立绘…</div>
+  </div>
+
+  <div id="hint">
+    曳尔沐立绘壁纸<br>
+    Space 全屏 · 双击全屏
+  </div>
+
+  <div id="bar">
+    <button id="fsBtn">⛶ 全屏</button>
+    <a href="/agent-pages/">← 页面列表</a>
+  </div>
+
+  <script src="bundle.js"></script>
+  <script>
+    (function () {
+      var loading = document.getElementById("loading");
+      var text = document.getElementById("loadingText");
+
+      // bundle 自己会拉 ./assets/config.json，这里只负责藏掉遮罩
+      function hideLoading() { loading.classList.add("hide"); }
+      window.addEventListener("load", function () { setTimeout(hideLoading, 600); });
+      // 兜底：最迟 12 秒后无论如何隐藏
+      setTimeout(hideLoading, 12000);
+      // 出错时给出提示
+      window.addEventListener("error", function (e) {
+        if (text && !loading.classList.contains("hide")) {
+          text.textContent = "加载出错了：" + (e.message || "未知错误");
+          text.style.color = "#ff6b6b";
+        }
+      });
+
+      function toggleFullscreen() {
+        var d = document;
+        if (!d.fullscreenElement) {
+          (d.documentElement.requestFullscreen || d.documentElement.webkitRequestFullscreen || function(){}).call(d.documentElement);
+        } else {
+          (d.exitFullscreen || d.webkitExitFullscreen || function(){}).call(d);
+        }
+      }
+      document.getElementById("fsBtn").addEventListener("click", toggleFullscreen);
+      document.addEventListener("dblclick", toggleFullscreen);
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Space") { e.preventDefault(); toggleFullscreen(); }
+      });
+    })();
+  </script>
+</body>
+</html>
