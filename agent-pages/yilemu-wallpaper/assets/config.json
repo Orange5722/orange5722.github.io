@@ -7,7 +7,7 @@
   },
   "background": {
     "enabled": true,
-    "textureFileName": "SP_YeRmuDLH_bg.png",
+    "textureFileName": "SP_YeRmuDLH_Bg.png",
     "mode": "cover",
     "opacity": 1,
     "z": -1500
