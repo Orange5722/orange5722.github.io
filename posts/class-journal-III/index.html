@@ -165,26 +165,23 @@ document.addEventListener("pjax:success", initScrollReveal);
   const setting = localStorage.getItem('darken-mode') || 'auto'
   if (setting === 'dark' || (prefersDark && setting !== 'light'))
     document.documentElement.classList.toggle('dark', true)
-})()</script><!-- hexo injector head_end start --><style id="footer-readability">
-#footer { color: #3a3a42; }
-#footer .copyright, #footer .powered, #footer .live-time, #footer #busuanzi { color: #3a3a42; }
-#footer .footer-separator { color: #8b8b95; }
-#footer a { color: #1f5fbf; }
-#footer a:hover { color: #0b3f96; }
-html.dark #footer { color: #E6E6E6; }
-html.dark #footer .copyright, html.dark #footer .powered, html.dark #footer .live-time, html.dark #footer #busuanzi { color: #E6E6E6; }
-html.dark #footer .footer-separator { color: #8b90a8; }
-html.dark #footer a { color: #DCE6FF; }
-html.dark #footer a:hover { color: #FFFFFF; }
-</style>
+})()</script><!-- hexo injector head_end start -->
 <style id="spine-bg-style">
-  /* 关掉主题静态背景，省掉 2.4MB 图片下载 */
-  body::before { display: none !important; }
+  /* 只有动态背景真的跑起来时，才关掉主题静态图（省 2.4MB）
+     —— 移动端/失败/减少动效时保留静态壁纸，避免露底色 */
+  body.spine-bg-on::before { display: none !important; }
 
   /* 兜底色挪到 html，body 透明，让画布露出来 */
   html { background-color: #f5f5f5 !important; }
   html.dark { background-color: #303030 !important; }
   body.spine-bg-on { background-color: transparent !important; }
+
+  /* 移动端：用轻量版静态壁纸（1080 宽，约 175KB），别拉 2.4MB 原图 */
+  @media (max-width: 820px) {
+    body { background-color: transparent !important; }
+    body::before { background-image: url("/assets/bg/yilemu-mobile.jpg") !important; }
+    html.dark body::before { background-image: url("/assets/bg/night-water.jpg") !important; }
+  }
 
   /* 画布在最底层之上、内容之下；不碰任何内容元素的 position/z-index */
   body > canvas.spine-bg-canvas {
@@ -198,8 +195,8 @@ html.dark #footer a:hover { color: #FFFFFF; }
     display: block !important;
   }
 
-  /* 深色模式给背景压暗 */
-  html.dark body::after {
+  /* 深色模式给动态背景压暗（只在画布生效时加，避免把静态壁纸压两层） */
+  html.dark body.spine-bg-on::after {
     content: "";
     position: fixed;
     inset: 0;
@@ -231,7 +228,18 @@ html.dark #footer a:hover { color: #FFFFFF; }
     body > canvas.spine-bg-canvas { display: none !important; }
   }
 </style>
-<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+<style id="footer-readability">
+#footer { color: #3a3a42; }
+#footer .copyright, #footer .powered, #footer .live-time, #footer #busuanzi { color: #3a3a42; }
+#footer .footer-separator { color: #8b8b95; }
+#footer a { color: #1f5fbf; }
+#footer a:hover { color: #0b3f96; }
+html.dark #footer { color: #E6E6E6; }
+html.dark #footer .copyright, html.dark #footer .powered, html.dark #footer .live-time, html.dark #footer #busuanzi { color: #E6E6E6; }
+html.dark #footer .footer-separator { color: #8b90a8; }
+html.dark #footer a { color: #DCE6FF; }
+html.dark #footer a:hover { color: #FFFFFF; }
+</style><!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
