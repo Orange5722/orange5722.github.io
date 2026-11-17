@@ -35,7 +35,62 @@ html.dark #footer .copyright, html.dark #footer .powered, html.dark #footer .liv
 html.dark #footer .footer-separator { color: #8b90a8; }
 html.dark #footer a { color: #DCE6FF; }
 html.dark #footer a:hover { color: #FFFFFF; }
-</style><!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+</style>
+<style id="spine-bg-style">
+  /* 关掉主题静态背景，省掉 2.4MB 图片下载 */
+  body::before { display: none !important; }
+
+  /* 兜底色挪到 html，body 透明，让画布露出来 */
+  html { background-color: #f5f5f5 !important; }
+  html.dark { background-color: #303030 !important; }
+  body.spine-bg-on { background-color: transparent !important; }
+
+  /* 画布在最底层之上、内容之下；不碰任何内容元素的 position/z-index */
+  body > canvas.spine-bg-canvas {
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: -1 !important;
+    pointer-events: none !important;
+    display: block !important;
+  }
+
+  /* 深色模式给背景压暗 */
+  html.dark body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: rgba(0, 0, 0, .55);
+    pointer-events: none;
+  }
+
+  /* ---------- 文章卡片毛玻璃 ---------- */
+  .post-card,
+  article.post {
+    background-color: rgba(255, 255, 255, .58) !important;
+    backdrop-filter: blur(16px) saturate(1.25);
+    -webkit-backdrop-filter: blur(16px) saturate(1.25);
+    border: 1px solid rgba(255, 255, 255, .45) !important;
+    box-shadow: 0 6px 26px rgba(31, 45, 90, .10) !important;
+  }
+  html.dark .post-card,
+  html.dark article.post {
+    background-color: rgba(22, 24, 34, .55) !important;
+    border-color: rgba(255, 255, 255, .10) !important;
+    box-shadow: 0 6px 26px rgba(0, 0, 0, .35) !important;
+  }
+
+  @media (max-width: 820px) {
+    body > canvas.spine-bg-canvas { display: none !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body > canvas.spine-bg-canvas { display: none !important; }
+  }
+</style>
+<!-- hexo injector head_end end --></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
 IconifyProviders = {
   // Empty prefix: overwrite default API provider configuration
   '': {
@@ -99,4 +154,58 @@ blog_live_time();
 initMourn();</script><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script><script>const images = [...document.querySelectorAll('.markdown-body img')]
 mediumZoom(images)</script><style>.medium-zoom-image {
   z-index: 99;
-}</style></body></html>
+}</style><!-- hexo injector body_end start -->
+<script>
+(function () {
+  // 只在首页启用动态背景
+  var isHome = location.pathname === "/" || location.pathname === "/index.html";
+  if (!isHome) return;
+  if (window.matchMedia("(max-width: 820px)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // 记录加载前已存在的 canvas（主题的 fireworks 等），避免认错
+  var preexisting = new Set(Array.prototype.slice.call(document.querySelectorAll("canvas")));
+
+  function tagNewCanvas() {
+    var all = document.querySelectorAll("canvas");
+    for (var i = 0; i < all.length; i++) {
+      var c = all[i];
+      if (!preexisting.has(c) && !c.classList.contains("spine-bg-canvas")) {
+        c.classList.add("spine-bg-canvas");
+        document.body.classList.add("spine-bg-on");
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // 不依赖 window.load（主题会加载 CDN 字体，可能很久不触发）
+  function boot() {
+    setTimeout(function () {
+      var s = document.createElement("script");
+      s.src = "/agent-pages/yilemu-wallpaper/bundle-bg.js";
+      s.async = true;
+      s.onload = function () {
+        var tries = 0;
+        var timer = setInterval(function () {
+          if (tagNewCanvas() || ++tries > 200) clearInterval(timer);
+        }, 100);
+      };
+      s.onerror = function () {
+        // 加载失败：回落到静态背景图
+        var st = document.createElement("style");
+        st.textContent = "body::before{display:block !important;background-image:url('/assets/bg/yilemu-day.jpg?v=2') !important;}";
+        document.head.appendChild(st);
+      };
+      document.body.appendChild(s);
+    }, 1200);
+  }
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    boot();
+  } else {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  }
+})();
+</script>
+<!-- hexo injector body_end end --></body></html>
